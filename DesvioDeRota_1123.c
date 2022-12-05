@@ -3,9 +3,7 @@
 // Bibliotecas
 #include <stdio.h>
 #include <stdlib.h>
-
-// Macros
-#define MAX_INT 10101010
+#include <limits.h>
 
 // ------------------------------------------ Funções da Queue ------------------------------------------ //
 
@@ -54,13 +52,13 @@ int n, m, c, k, grafo[1000][1000], custo[1000];
 void init() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            grafo[i][j] = MAX_INT;
+            grafo[i][j] = INT_MAX;
         }
-        custo[i] = MAX_INT;
+        custo[i] = INT_MAX;
     }
 }
 
-// ------------------------------------- Dijkstra & Variáveis Globais ------------------------------------- //
+// ----------------------------------------------- Dijkstra ---------------------------------------------- //
 
 // Dijkstra
 int dijkstra(int ori, int dest){
@@ -69,7 +67,7 @@ int dijkstra(int ori, int dest){
 	while(!isEmpty()){
 		int i = get();
 		for(int j=0; j<n; j++){
-			if(grafo[i][j] != MAX_INT && custo[j] > custo[i] + grafo[i][j]){
+			if(grafo[i][j] != INT_MAX && custo[j] > custo[i] + grafo[i][j]){
 				custo[j] = custo[i] + grafo[i][j];
 				push(j);
 			}
@@ -77,7 +75,6 @@ int dijkstra(int ori, int dest){
 	}
 	return custo[dest];
 }
-
 
 // -------------------------------------------------- Main -------------------------------------------------- //
 
