@@ -64,8 +64,9 @@ int dijkstra(int ori, int dest){
         // Atualiza distancias dos vizinhos
         for (int j = 0; j < n; j++) {
             /*
-            Se o vertice nao foi visitado, a distancia do vertice atual + a distancia do vertice atual para o vertice j 
-            for menor que a distancia do vertice j, atualiza a distancia do vertice j
+               - Se o vertice nao foi visitado (visitado[j] == 0)
+               - E se existe uma ligacao entre o vertice atual e o vertice j (grafo[u][j] != INT_MAX)
+                - E se a distancia do vertice atual + a distancia do vertice atual para o vertice j for menor que a distancia do vertice j
             */
             if (visitado[j] == 0 && grafo[u][j] != INT_MAX && dist[u] + grafo[u][j] < dist[j]) {
                 dist[j] = dist[u] + grafo[u][j];
@@ -76,6 +77,7 @@ int dijkstra(int ori, int dest){
     // Retorna distancia do destino
     return dist[dest];
 }
+
 // ------------------------------------------------ Main ------------------------------------------------- //
 
 int main(){

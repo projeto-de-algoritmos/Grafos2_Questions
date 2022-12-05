@@ -15,7 +15,7 @@
 
     queue* fila = NULL;
     
-    // Push - Adiciona um elemento na fila
+    // Push - Adiciona um elemento na fila (FIFO - First In First Out)
     void push(int x) {
         queue *aux = malloc(sizeof(queue));
         aux->key = x;
@@ -24,7 +24,7 @@
             fila = aux;
         else {
             queue *aux2 = fila;
-            while (aux2->next != NULL)
+            while (aux2->next != NULL) // Encontra o ultimo elemento da fila
                 aux2 = aux2->next;
             aux2->next = aux;
         }
@@ -67,8 +67,12 @@ int dijkstra(int ori, int dest){
 	while(!isEmpty()){
 		int i = get();
 		for(int j=0; j<n; j++){
+            /*
+                - Se existe uma aresta entre i e j (grafo[i][j] != INT_MAX)
+                - Se o custo de j é maior que o custo de i + o custo da aresta (custo[j] > custo[i] + grafo[i][j])
+            */
 			if(grafo[i][j] != INT_MAX && custo[j] > custo[i] + grafo[i][j]){
-				custo[j] = custo[i] + grafo[i][j];
+				custo[j] = custo[i] + grafo[i][j]; // Atualiza o custo de j --> garante o menor caminho
 				push(j);
 			}
 		}
@@ -114,7 +118,7 @@ int main() {
             if(u<c && v>=c) grafo[v][u]=p; // adicione apenas a estrada que chega em u
             
             // se as duas cidades forem cidades consecutivas da rota
-            if(u<c && v<c && abs(u-v)==1){
+            if(u<c && v<c && abs(u-v)==1){ // u<c && v<c significa que u e v pertencem à rota
                 //adiciono a estrada normalmente
                 grafo[u][v]=p;
                 grafo[v][u]=p;
